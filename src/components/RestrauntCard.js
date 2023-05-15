@@ -10,10 +10,10 @@ const RestrauntCard = ({ name, cuisines, avgRating, cloudinaryImageId }) => {
     //     restaurant?.data?.data;
     return (
         <div className="card">
-            <img alt="card image" src={IMG_CDN_URL + cloudinaryImageId} />
-            <h2>{name}</h2>
-            <h3>{cuisines?.join(", ")}</h3>
-            <h4>{avgRating}</h4>
+            <img alt="card image" src={IMG_CDN_URL + cloudinaryImageId} className="card-image"/>
+            <h4 className="card-title">{name}</h4>
+            <p className="card-cuisine">{cuisines?.slice(0,2)?.join(", ")}</p>
+            <p className="card-rating">{avgRating} stars</p>
         </div>
     );
 };

@@ -6,7 +6,7 @@ import Body from "./components/Body";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
-import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import SearchNotFound from "./components/SearchNotFound";
 import RestaurantMenu from "./components/RestaurantMenu";
 
@@ -32,19 +32,20 @@ import RestaurantMenu from "./components/RestaurantMenu";
 const AppLayout = () => {
     return (
         <React.Fragment>
-            <Header />
-            <Outlet/>
-            <Footer />
+            <div className="main">
+                <Header />
+                <Outlet />
+                <Footer />
+            </div>
         </React.Fragment>
     );
 };
 
 /* routing in react is done by package named as react-router-dom it is not given by react it is external package by remix for routing we import a function named as createBrowerRouter. in this finction we write appRouter configuration which means if certain path is provid in url then which component/elemet should be loaded this function  takes arr of js objects each object has path and element there is one special object which has key as errorElement which means if the path does not exist then rather then showing ugly red errors we can show our custom error page for this page create-router-dom provides a function/hook named useRouterError which has all the info about the error such as error status , stausText and many more it return an object containing all this info. Now we have created the configuration but how will react know this config file has been created and we have to render the pages according to this config. For that react-router-dom provides a component which takes this config function as props and do rendering accordingly so in root.render we render this component whose name is RouterProvider    */
 
-
 const appRouter = createBrowserRouter([
     {
-        errorElement: <Error />
+        errorElement: <Error />,
     },
     {
         path: "/",
@@ -52,7 +53,7 @@ const appRouter = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Body/>
+                element: <Body />,
             },
             {
                 path: "/about",
@@ -60,14 +61,14 @@ const appRouter = createBrowserRouter([
             },
             {
                 path: "/contact",
-                element: <Contact/>
+                element: <Contact />,
             },
             {
                 path: "/restaurant/:resId",
-                element: <RestaurantMenu/>
-            }
-        ]
-    }
+                element: <RestaurantMenu />,
+            },
+        ],
+    },
 ]); // here we pass config about are routing
 
 // rendering the root element
