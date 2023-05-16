@@ -4,6 +4,7 @@
   "description": "app similar to swiggy using swiggy api from inspect",
   "scripts": {
     "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
   "author": "Kushan Sukhtankar",
