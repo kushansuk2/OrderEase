@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { IMG_CDN_URL, REST_MENU } from "../config";
 import { useParams } from "react-router-dom";
+import useRestaurant from "../../utils/useRestaurant";
 
 const RestaurantMenu = () => {
     const { resId } = useParams(); // object destructuring on the go
-    const [resInfo, setResInfo] = useState(null);
+    // const [resInfo, setResInfo] = useState(null);
 
-    useEffect(() => {
-        getResInfo();
-    }, []);
-
-    const getResInfo = async () => {
-        const data = await fetch(REST_MENU + resId);
-        const json = await data.json();
-        setResInfo(json);
-        // console.log(json);
-    };
+    const resInfo = useRestaurant(resId);
+    
 
     if (!resInfo) return <>no</>;
 

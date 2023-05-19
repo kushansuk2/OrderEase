@@ -2,30 +2,19 @@ import { restrauantList } from "../config";
 import SearchNotFound from "./SearchNotFound";
 import ShimmerUi from "./ShimmerUi";
 import RestrauntCard from "./RestrauntCard";
-import { ALL_REST } from "../config";
-import { useState, useEffect } from "react";
+import { useState,lazy,Suspense } from "react";
 import { Link } from "react-router-dom";
+import useRestaurantData from "../../utils/useRestaurantData";
+import useOnlineStatus from "../../utils/useOnlineStatus";
 
 const Body = () => {
     console.log("render");
 
     const [searchText, setSearchText] = useState("");
-    const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-    const [allRestaurants, setAllRestaurants] = useState([]);
     const [display, setDisplay] = useState(false);
 
-    useEffect(() => {
-        // API call
-        getRestaurant();
-    }, []);
-
-    async function getRestaurant() {
-        const data = await fetch(ALL_REST);
-        const json = await data.json();
-        // console.log(data);
-        setAllRestaurants(json?.data?.cards);
-        setFilteredRestaurant(json?.data?.cards);
-    }
+    const { allRestaurants, filteredRestaurant, setFilteredRestaurant } =
+        useRestaurantData();
 
     const errorPage = () => {
         return <h1>asdasdasd</h1>;
@@ -50,6 +39,9 @@ const Body = () => {
             //<SearchNotFound />;
         } else setDisplay(false);
     };
+
+    const isOnline = useOnlineStatus();
+    if (!isOnline) return <h1>Offline, check your internet connection</h1>;
 
     if (!allRestaurants) return null;
 
@@ -83,7 +75,10 @@ const Body = () => {
             <div className="restList">
                 {filteredRestaurant?.map((restaurant) => {
                     return (
-                        <Link  key={restaurant?.data?.data?.id} to={"/restaurant/" + restaurant?.data?.data?.id}>
+                        <Link
+                            key={restaurant?.data?.data?.id}
+                            to={"/restaurant/" + restaurant?.data?.data?.id}
+                        >
                             <RestrauntCard
                                 {...restaurant?.data?.data}
                                 key={restaurant?.data?.data?.id}

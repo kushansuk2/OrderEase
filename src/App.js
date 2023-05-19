@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header"; // named import and default import
 import Footer from "./components/Footer";
@@ -6,9 +6,12 @@ import Body from "./components/Body";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
-import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import SearchNotFound from "./components/SearchNotFound";
+import Profile from "./components/Profile";
 import RestaurantMenu from "./components/RestaurantMenu";
+import ShimmerUi from "./components/ShimmerUi";
+// import Instamart from "./components/Instamart"; // we will not direclty import it we lazy load it
 
 // import * as xyz from "..." here xyz is an object
 // in default we can     rename
@@ -29,22 +32,24 @@ import RestaurantMenu from "./components/RestaurantMenu";
 
 // to give inline css we need to create object of css like const CssObject = {..} ans pass it like this div style = {object name} {} -> inside this because we can write any code of js in it
 
+const Instamart = lazy(() => import("./components/Instamart")); // by this way we cannot direclty display the contains by lazy loading because it takes sometime to render new bundle so we use Suspence component
+
 const AppLayout = () => {
     return (
         <React.Fragment>
             <Header />
-            <Outlet/>
+            <Outlet />
             <Footer />
         </React.Fragment>
     );
 };
 
-/* routing in react is done by package named as react-router-dom it is not given by react it is external package by remix for routing we import a function named as createBrowerRouter. in this finction we write appRouter configuration which means if certain path is provid in url then which component/elemet should be loaded this function  takes arr of js objects each object has path and element there is one special object which has key as errorElement which means if the path does not exist then rather then showing ugly red errors we can show our custom error page for this page create-router-dom provides a function/hook named useRouterError which has all the info about the error such as error status , stausText and many more it return an object containing all this info. Now we have created the configuration but how will react know this config file has been created and we have to render the pages according to this config. For that react-router-dom provides a component which takes this config function as props and do rendering accordingly so in root.render we render this component whose name is RouterProvider    */
-
+/* routing in react is done by package named as react-router-dom it is not given by react it is external package by remix for routing we import a function named as createBrowerRouter. in this finction we write appRouter configuration which means if certain path is provid in url then which component/elemet should be loaded this function  takes arr of js objects each object has path and element there is one special object which has key as errorElement which means if the path does not exist then rather then showing ugly red errors we can show our custom error page for this page create-router-dom provides a function/hook named useRouterError which has all the info about the error such as error status , stausText and many more it return an object containing all this info. Now we have created the configuration but how will react know this config file has been created and we have to render the pages according to this config. For that react-router-dom provides a component which takes this config function as props and do rendering accordingly so in root.render we render this component whose name is RouterProvider
+now for nested routing we create children for example aur home page is at route "/" here we have common components which should be displayed on its children to so we do nested routing means "/about" it means about is children of home directory all childs of of "/" is loaded in into an outlet component provided by react-router-dom when we put name of any children in uri/url it loads it into outlet. Create children only when we need some content of its parent or else make it sibling  */
 
 const appRouter = createBrowserRouter([
     {
-        errorElement: <Error />
+        errorElement: <Error />,
     },
     {
         path: "/",
@@ -52,22 +57,36 @@ const appRouter = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Body/>
+                element: <Body />,
             },
             {
                 path: "/about",
                 element: <About />,
+                children: [
+                    {
+                        path: "profile",
+                        element: <Profile />,
+                    },
+                ],
             },
             {
                 path: "/contact",
-                element: <Contact/>
+                element: <Contact />,
             },
             {
                 path: "/restaurant/:resId",
-                element: <RestaurantMenu/>
-            }
-        ]
-    }
+                element: <RestaurantMenu />,
+            },
+            {
+                path: "/instamart",
+                element: (
+                    <Suspense fallback={<ShimmerUi />}>
+                        <Instamart />
+                    </Suspense>
+                ),
+            },
+        ],
+    },
 ]); // here we pass config about are routing
 
 // rendering the root element

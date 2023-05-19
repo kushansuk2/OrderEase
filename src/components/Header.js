@@ -21,18 +21,31 @@ const Header = () => {
             <Title />
             <div className="nav-items">
                 <ul>
-                    <li><Link to="/">Home</Link></li>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
                     <li>
                         <Link to="/About">About</Link>
                     </li>
-                    <li><Link to="/Contact">Contact</Link></li>
+                    <li>
+                        <Link to="/Contact">Contact</Link>
+                    </li>
+                    <li>
+                        <Link to="/instamart">Instamart</Link>
+                    </li>
                     <li>Cart</li>
+                    <li>
+                        {isLoggedIn ? (
+                            <button onClick={() => setIsLoggedIn(false)}>
+                                Logout
+                            </button>
+                        ) : (
+                            <button onClick={() => setIsLoggedIn(true)}>
+                                Login
+                            </button>
+                        )}
+                    </li>
                 </ul>
-                {isLoggedIn ? (
-                    <button onClick={() => setIsLoggedIn(false)}>Logout</button>
-                ) : (
-                    <button onClick={() => setIsLoggedIn(true)}>Login</button>
-                )}
             </div>
         </div>
     );
