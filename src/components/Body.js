@@ -52,10 +52,10 @@ const Body = () => {
 
     return (
         <>
-            <div className="search-container">
+            <div className="p-2 my-6 bg-pink-50">
                 <input
                     type="text"
-                    className="search-input"
+                    className="p-2 rounded-md"
                     placeholder="Search"
                     value={searchText}
                     onChange={(e) => {
@@ -64,7 +64,7 @@ const Body = () => {
                 ></input>
 
                 <button
-                    className="search-btn"
+                    className="p-2 rounded-md mx-2 bg-purple-500"
                     onClick={() => {
                         filterData();
                     }}
@@ -72,7 +72,8 @@ const Body = () => {
                     Search
                 </button>
             </div>
-            <div className="restList">
+
+            <div className="flex-wrap justify-between">
                 {filteredRestaurant?.map((restaurant) => {
                     return (
                         <Link
