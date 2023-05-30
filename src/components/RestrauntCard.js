@@ -9,11 +9,15 @@ const RestrauntCard = ({ name, cuisines, avgRating, cloudinaryImageId }) => {
     // const { name, cuisines, avgRating, cloudinaryImageId } =
     //     restaurant?.data?.data;
     return (
-        <div className="h-48 w-48 shadow-lg bg-pink-50">
-            <img alt="card image" src={IMG_CDN_URL + cloudinaryImageId} className="h-24 w-48"/>
-            <h2>{name}</h2>
-            <h3>{cuisines?.join(", ")}</h3>
-            <h4>{avgRating}</h4>
+        <div className="flex justify-between flex-col overflow-hidden cursor-pointer h-72 w-72 shadow-xl shadow-slate-300 hover:scale-105 rounded-md m-3">
+            <img
+                alt="card image"
+                src={IMG_CDN_URL + cloudinaryImageId}
+                className="h-44 w-full object-cover"
+            />
+            <h2 className="font-bold p-3">{name}</h2>
+            <h3 className="px-3">{cuisines?.slice(0, 2)?.join(", ")}</h3>
+            <h4 className="p-3">{avgRating}</h4>
         </div>
     );
 };
