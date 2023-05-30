@@ -1,4 +1,4 @@
-.logo {
+/* .logo {
     width: 100px;
 }
 
@@ -7,9 +7,9 @@
     justify-content: space-between;
     margin: 10px;
     border: 1px solid black;
-}
+} */
 
-.nav-items > ul {
+/* .nav-items > ul {
     list-style-type: none;
     display: flex;
 }
@@ -29,10 +29,10 @@
 .card > img {
     width: 100%;
     height: 40%;
-    /* border: 1px solid black;     */
-}
+    border: 1px solid black;    
+} */
 
-.card > h1,
+/* .card > h1,
 h2,
 h3,
 h4,
@@ -49,8 +49,8 @@ h6 {
     border: 1px solid black;
     margin: 10px;
     padding: 10px;
-}
-
+} */
+/* 
 .restList,
 .card-list {
     display: flex;
@@ -63,4 +63,40 @@ h6 {
 
 .menu-image{
     width: 300px;
-}
+} */
+
+/* pros of using libary in css
+1. coinsistency
+2. uniformity
+3. every website has it's own vibe
+4. easy to code and faster
+
+cons
+1. makes bundles size heavy
+2. loose lot of control over how my ui should look like personal custumization becomes hard
+*/
+
+/* different ways of writting css
+1. normal native css file
+2. scss
+3. line line using object
+4. Component libary
+5. Styled components
+
+6. framework (tailwind)
+    - css on the go (in the same file)
+    - resuability
+    - less bundle size (minimal css)
+    - flexible ui (customization is possible)
+    - easy to debug
+    - less code
+    - less time 
+
+cons
+    - initial high learning curve
+    - not easy to be read
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
