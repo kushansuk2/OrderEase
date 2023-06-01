@@ -2,7 +2,7 @@ import ShimmerCard from "./ShimmerCard";
 
 const ShimmerUi = () => {
     return (
-        <div className="card-list">
+        <div className="">
             {Array(10)
                 .fill(" ")
                 .map((curr,index) => {

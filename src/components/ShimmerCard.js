@@ -1,5 +1,5 @@
 const ShimmerCard = () => {
-    return <div className="shimmer-card"></div>
+    return <div className=""></div>
 }
 
 export default ShimmerCard;

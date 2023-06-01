@@ -1,5 +1,13 @@
+import { useContext } from "react";
+import UserContext from "../../utils/UserContext";
+
 const SearchNotFound = () => {
-    return <h1>No Search Found</h1>;
+    const user = useContext(UserContext);
+    return (
+        <div>
+            <h1>No Search Found {typeof user}</h1>
+        </div>
+    );
 };
 
 export default SearchNotFound;

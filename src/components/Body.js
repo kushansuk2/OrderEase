@@ -2,10 +2,11 @@ import { restrauantList } from "../config";
 import SearchNotFound from "./SearchNotFound";
 import ShimmerUi from "./ShimmerUi";
 import RestrauntCard from "./RestrauntCard";
-import { useState,lazy,Suspense } from "react";
+import { useState, lazy, Suspense, useContext } from "react";
 import { Link } from "react-router-dom";
 import useRestaurantData from "../../utils/useRestaurantData";
 import useOnlineStatus from "../../utils/useOnlineStatus";
+import UserContext from "../../utils/UserContext";
 
 const Body = () => {
     console.log("render");
@@ -15,6 +16,8 @@ const Body = () => {
 
     const { allRestaurants, filteredRestaurant, setFilteredRestaurant } =
         useRestaurantData();
+
+    const { user, setUser } = useContext(UserContext);
 
     const errorPage = () => {
         return <h1>asdasdasd</h1>;
@@ -73,6 +76,18 @@ const Body = () => {
                 </button>
             </div>
 
+            <div className="flex p-3 my-6 bg-pink-50 justify-center">
+                <input
+                    type="text"
+                    className="p-3 rounded-md w-96 hover:scale-105"
+                    placeholder="Update"
+                    value={user.name}
+                    onChange={(e) => {
+                        setUser({ ...user, name: e.target.value });
+                    }}
+                ></input>
+            </div>
+
             <div className="flex flex-wrap justify-between mx-5">
                 {filteredRestaurant?.map((restaurant) => {
                     return (
@@ -90,11 +105,16 @@ const Body = () => {
             </div>
             {display && (
                 <div className="error-container">
-                    <SearchNotFound />
+                    <UserContext.Provider>
+                        {" "}
+                        <SearchNotFound />
+                    </UserContext.Provider>
                 </div>
             )}
         </>
     );
 };
+
+// for passing previous context data to new one first extract it then pass it
 
 export default Body;

@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../../utils/UserContext";
+import UserContext from "../../utils/UserContext";
 
 // title react component
 const Title = () => {
@@ -16,9 +18,13 @@ const Title = () => {
 
 const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { user } = useContext(UserContext);
     return (
         <div className="flex justify-between p-2 m-0 bg-pink-50 shadow-lg">
             <Title />
+            <span className="p-4 m-2">
+                {user.name} - {user.email}{" "}
+            </span>
             <div>
                 <ul className="flex p-2 m-2">
                     <li className="p-2">
