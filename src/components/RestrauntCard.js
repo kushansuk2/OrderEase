@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { IMG_CDN_URL } from "../config";
+import UserContext from "./../../utils/UserContext";
 
 const RestrauntCard = ({ name, cuisines, avgRating, cloudinaryImageId }) => {
     // destructuring on the fly instead of writting props we can destructure props -> {restaurant}
@@ -8,6 +10,9 @@ const RestrauntCard = ({ name, cuisines, avgRating, cloudinaryImageId }) => {
     // we can de structure everything on the fly
     // const { name, cuisines, avgRating, cloudinaryImageId } =
     //     restaurant?.data?.data;
+
+    const { user } = useContext(UserContext);
+
     return (
         <div className="flex justify-between flex-col overflow-hidden cursor-pointer h-72 w-72 shadow-xl shadow-slate-300 hover:scale-105 rounded-md m-3">
             <img
@@ -17,7 +22,10 @@ const RestrauntCard = ({ name, cuisines, avgRating, cloudinaryImageId }) => {
             />
             <h2 className="font-bold p-3">{name}</h2>
             <h3 className="px-3">{cuisines?.slice(0, 2)?.join(", ")}</h3>
-            <h4 className="p-3">{avgRating}</h4>
+            {/* <h4 className="p-3">{avgRating}</h4> */}
+            <span className="p-3">
+                {user.name} - {user.email}
+            </span>
         </div>
     );
 };

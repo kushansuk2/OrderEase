@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy,useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header"; // named import and default import
 import Footer from "./components/Footer";
@@ -11,6 +11,7 @@ import SearchNotFound from "./components/SearchNotFound";
 import Profile from "./components/Profile";
 import RestaurantMenu from "./components/RestaurantMenu";
 import ShimmerUi from "./components/ShimmerUi";
+import UserContext from "../utils/UserContext";
 // import Instamart from "./components/Instamart"; // we will not direclty import it we lazy load it
 
 // import * as xyz from "..." here xyz is an object
@@ -35,11 +36,17 @@ import ShimmerUi from "./components/ShimmerUi";
 const Instamart = lazy(() => import("./components/Instamart")); // by this way we cannot direclty display the contains by lazy loading because it takes sometime to render new bundle so we use Suspence component
 
 const AppLayout = () => {
+    const [user, setUser] = useState({
+        name: "kushan",
+        email: "kushansuk2@gmail.com",
+    });
     return (
         <React.Fragment>
-            <Header />
-            <Outlet />
-            <Footer />
+            <UserContext.Provider value={{user,setUser}}>
+                <Header />
+                <Outlet />
+                <Footer />
+            </UserContext.Provider>
         </React.Fragment>
     );
 };
